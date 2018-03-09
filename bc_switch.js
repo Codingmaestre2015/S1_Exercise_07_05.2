@@ -14,3 +14,15 @@
    view and page view
    
 */
+
+window.addEventListener("load", setUpStyles);
+
+function setUpStyles() {
+    // Create a link element for the page view style
+    var pageStyle = document.createElement("link");
+    pageStyle.setAttribute("href", "bc_page.css");
+    pageStyle.setAttribute("rel", "stylesheet");
+
+    // Append the link element to the document head
+    document.head.appendChild(pageStyle);
+}

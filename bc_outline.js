@@ -53,14 +53,28 @@ function createList(source, outlineList) {
     // Previous level of the Headings
     var prevLevel = 0;
 
+    // Running total of the article headings
+    var headNum = 0;
+
     /* Loop through all of the child nodes of source article until no child nodes are left*/
 
     for (var n = source.firstChild; n !== null; n = n.nextSibling) {
         // Examine only article headings
         var headLevel = headings.indexOf(n.nodeName);
         if (headLevel !== -1) {
+            //Add an id to the heading if it is missing
+            headNum++;
+            if (n.hasAttribute("id") === false) {
+                n.setAttribute("id", "head" + headNum);
+            }
             var listElem = document.createElement("li");
-            listElem.innerHTML = n.firstChild.nodeValue;
+            // listElem.innerHTML = n.firstChild.nodeValue;
+            // Create hypertext links to the document headings
+            var linkElem = document.createElement("a");
+            linkElem.innerHTML = n.innerHTML;
+            linkElem.setAttribute("href", "#" + n.id);
+            // Append the hypertext link to the list item
+            listElem.appendChild(linkElem);
             if (headLevel === prevLevel) {
                 // Append the list item to the current list
                 outlineList.appendChild(listElem);
